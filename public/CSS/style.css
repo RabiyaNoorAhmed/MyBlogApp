@@ -13,20 +13,25 @@
     padding-left: 40px;
     background-color: rgba(119, 73, 248, 1);
 }
-.logoDiv a{
+
+.logoDiv a {
     color: #fff !important;
     font-weight: 600;
-    text-decoration:none ;
+    text-decoration: none;
 }
-.logoDiv a:hover{
-color: #fff !important;
+
+.logoDiv a:hover {
+    color: #fff !important;
 }
+
 .listDiv ul {
     margin-bottom: 0 !important;
 }
+
 .navbar-nav {
     gap: 15px;
 }
+
 .signupBtn {
     border: 2px solid #fff;
     color: #fff !important;
@@ -34,10 +39,12 @@ color: #fff !important;
     padding: 5px 20px !important;
     transition: all .3s;
 }
+
 .signupBtn:hover {
     color: white;
- background-color: rgba(119, 73, 248, 1);
+    background-color: rgba(119, 73, 248, 1);
 }
+
 .loginBtn {
     border: 2px solid #fff;
     border-radius: 20px;
@@ -50,6 +57,39 @@ color: #fff !important;
     color: white;
 }
 
+.navbarToggler {
+    display: none;
+    border: none;
+    font-size: 26px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #fff;
+}
+
+.navbarToggler:hover {
+    background-color: #7749F8;
+}
+
+.listDiv.showDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+@keyframes myAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /*=======Navbar End=======*/
 /*======Header Text Start======*/
 .headingDiv {
@@ -59,10 +99,12 @@ color: #fff !important;
     justify-content: center;
     align-items: flex-start;
 }
-.headingDiv h1{
-    font-size: 38px ;
+
+.headingDiv h1 {
+    font-size: 38px;
     font-weight: 700;
 }
+
 .headingDiv h1 a {
     color: #7749F8;
     text-decoration: none;
@@ -74,11 +116,13 @@ color: #fff !important;
     background: var(--Gray-100, #F8F9FA);
     padding: 40px 50px;
 }
+
 .allBlogHeadingDiv h3 {
     color: #152536;
     font-size: 30px;
     font-weight: 600;
 }
+
 .blogCardDiv {
     margin: 20px 0;
     display: flex;
@@ -90,11 +134,13 @@ color: #fff !important;
     border: 1px solid #DEE2E6;
     background: #FFF;
 }
+
 .blogCard {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
+
 .blogImg {
     width: 100px;
     height: 100px;
@@ -102,11 +148,13 @@ color: #fff !important;
     border-radius: 20px;
     background: lightgray 50% / cover no-repeat;
 }
+
 .blogImg img {
     width: 100%;
     height: 100%;
     border-radius: inherit;
 }
+
 .blogDetailDiv {
     display: flex;
     gap: 15px;
@@ -151,8 +199,8 @@ color: #fff !important;
 }
 
 .allFromThisUserDiv a:hover {
-background-color: #7749F8;
-color: #FFF;
+    background-color: #7749F8;
+    color: #FFF;
     transition: all .3s;
 }
 
@@ -175,7 +223,9 @@ color: #FFF;
     height: 100px;
     margin: 20px auto;
     position: relative;
+    color: #7749F8 !important;
 }
+
 /*======ALl Blogs End=====*/
 /*======Footer Start=======*/
 footer {
@@ -187,6 +237,7 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
 .copyright {
     font-size: 14px;
 }
@@ -195,6 +246,11 @@ footer {
     color: #fff;
     text-decoration: none;
 }
+
+.copyright a i {
+    font-size: 20px;
+}
+
 /*=====Footer End======*/
 /*=====SignUp Page Start======*/
 .formMainDiv {
@@ -204,6 +260,7 @@ footer {
     justify-content: center;
     align-items: center;
 }
+
 .formDiv {
     width: 50%;
     border-radius: 10px;
@@ -215,6 +272,7 @@ footer {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     animation: flipcard 1s ease 0s 1 normal forwards;
 }
+
 @keyframes flipcard {
     0% {
         opacity: 0;
@@ -226,17 +284,21 @@ footer {
         transform: rotateY(0deg);
     }
 }
+
 .form-control:focus {
     border-color: #7749F8;
     box-shadow: 0 0 0 0.25rem rgba(119, 73, 248, .25);
 }
-.signupBtnDiv, .loginBtnDiv {
+
+.signupBtnDiv,
+.loginBtnDiv {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.signupBtnDiv button ,
- .loginBtnDiv button{
+
+.signupBtnDiv button,
+.loginBtnDiv button {
     color: white;
     border: none;
     padding: 8px 16px;
@@ -244,12 +306,13 @@ footer {
     background: #7749F8;
 }
 
-.signupBtnDiv button:hover ,
+.signupBtnDiv button:hover,
 .loginBtnDiv button:hover {
     transition: all .3s;
     background-color: #a187eb;
 }
-.text{
+
+.text {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -257,26 +320,30 @@ footer {
     opacity: 0.5;
     margin-top: -10px;
 }
-.googlebtn{
+
+.googlebtn {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: -30px;
 }
-.googlebtn button{
+
+.googlebtn button {
     border: 1px solid #585454;
     padding: 8px 20px;
     border-radius: 20px;
-    
+
 }
-.googlebtn span{
+
+.googlebtn span {
     margin-right: 18px;
 }
+
 /*=====SignUp Page End======*/
 /*========Loading GIf Start========*/
 .loaderDiv {
     position: fixed;
-    top:0;
+    top: 0;
     /* left:550px; */
     width: 100%;
     height: 100vh;
@@ -297,6 +364,42 @@ footer {
 
 
 /*======Media Query Start========*/
+@media (max-width: 758px) {
+    .navbar {
+        padding: 10px 10px;
+    }
+
+    .logoDiv {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .navbar>.container-fluid {
+        flex-direction: column;
+        align-items: start;
+        gap: 20px;
+    }
+
+    .listDiv {
+        display: none;
+    }
+
+    .navbarToggler {
+        display: block;
+    }
+
+    .listDiv.showDiv {
+        animation: myAnim 1s ease 0s 1 normal forwards;
+        width: 100%;
+    }
+
+    .navbar-expand .navbar-nav {
+        flex-direction: column;
+    }
+}
 
 @media (max-width: 576px) {
     .navbar {
@@ -316,10 +419,11 @@ footer {
         margin: 20px 0;
         display: flex;
     }
-    
+
     .allBlogDiv {
         padding: 40px 20px;
     }
+
     .formDiv {
         width: 80% !important;
         padding: 40px 15px;
@@ -353,5 +457,5 @@ footer {
         justify-content: center;
     }
 }
-/*======Media Query End========*/
 
+/*======Media Query End========*/

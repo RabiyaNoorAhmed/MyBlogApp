@@ -98,7 +98,7 @@
     }
 }
 
-
+/*========Navbar Start=======*/
 /* end navbar */
 /*======Header Text Start======*/
 .headingDiv {
@@ -233,6 +233,7 @@
     height: 100px;
     margin: 20px auto;
     position: relative;
+    color: #7749F8 !important;
 }
 
 /*======ALl Blogs End=====*/
@@ -255,7 +256,9 @@ footer {
     color: #fff;
     text-decoration: none;
 }
-
+.copyright a i{
+    font-size: 20px;
+}
 /*=====Footer End======*/
 /*========Loading GIf Start========*/
 .loaderDiv {
@@ -276,7 +279,7 @@ footer {
     width: 250px;
 }
 
-@media (max-width: 858px) {
+@media (max-width: 758px) {
     .navbar {
         padding: 10px 10px;
     }

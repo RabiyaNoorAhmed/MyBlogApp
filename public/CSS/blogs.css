@@ -56,7 +56,37 @@
 .loginBtn:hover {
     color: white;
 }
+.navbarToggler {
+    display: none;
+    border: none;
+    font-size: 26px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #fff !important;
+}
 
+.navbarToggler:hover {
+    background-color: #7749F8;
+}
+
+.listDiv.showDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+@keyframes myAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 /*=======Navbar End=======*/
 /*======Header Text Start======*/
 .headingDiv {
@@ -253,9 +283,46 @@ footer {
     color: #fff;
     text-decoration: none;
 }
-
+.copyright a i{
+    font-size: 20px;
+}
 /*=====Footer End======*/
+@media (max-width: 758px) {
+    .navbar {
+        padding: 10px 10px;
+    }
 
+    .logoDiv {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .navbar>.container-fluid {
+        flex-direction: column;
+        align-items: start;
+        gap: 20px;
+    }
+
+    .listDiv {
+        display: none;
+    }
+
+    .navbarToggler {
+        display: block;
+    }
+
+    .listDiv.showDiv {
+        animation: myAnim 1s ease 0s 1 normal forwards;
+        width: 100%;
+    }
+
+    .navbar-expand .navbar-nav {
+        flex-direction: column;
+    }
+}
 @media (max-width: 768px) {
     .contentDiv {
         flex-direction: column-reverse;

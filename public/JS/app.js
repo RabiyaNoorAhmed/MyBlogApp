@@ -26,7 +26,7 @@ import {
 
 
 } from "../Firebase/firebase.js"
-// import { loginWithGoogle } from '../sign/signup.js';
+
 // Variables
 const loaderDiv = document.querySelector(".loaderDiv");
 const userImg = document.getElementById("userImg");
@@ -95,7 +95,7 @@ const getUserData = async (id) => {
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Couldn't find your details! \u{1F641}",
+            text: "Couldn't find your details! \u{1F615}",
         });
     }
 };
@@ -113,7 +113,7 @@ onAuthStateChanged(auth, (user) => {
             && location.pathname !== "/adminblog/dashboard.html"
             && location.pathname !== "/adminblog/allBlogs.html"
         ) {
-            // location.href = "../adminblog/dashboard.html"
+            // location.href = "/adminblog/dashboard.html"
         }
     }  // If user is not authenticated
     else {
@@ -122,11 +122,13 @@ onAuthStateChanged(auth, (user) => {
             location.pathname !== "/index.html" &&
             location.pathname !== "/allBlogs.html" &&
             location.pathname !== "/") {
-            location.href = "../login/login.html";
+            location.href = "/login/login.html";
 
         }
     }
 });
+
+
 
 // User Login Authentication 
 const loginBtn = document.getElementById("loginBtn");
@@ -450,7 +452,7 @@ updBlgBtn && updBlgBtn.addEventListener("click", async () => {
 
 // Get ALl Blogs Function
 const getAllBlogs = () => {
-    if (location.pathname == "/adminblog/home.html" || location.pathname == "/index.html") {
+    if (location.pathname == "/adminblog/home.html") {
         blogCardMainDiv.innerHTML = "";
         const spinnerBorder = document.querySelector(".spinner-border");
         // Firestore query to get all users
@@ -459,6 +461,7 @@ const getAllBlogs = () => {
             querySnapshot.docChanges().forEach(async (currUser) => {
                 const userId = currUser.doc.data().userId;
                 const userName = currUser.doc.data().name;
+
                 let imageUrl;
                 imageUrl = currUser.doc.data().image;
                 //Firestore query to get all blogs of the current user ordered by time
@@ -487,6 +490,7 @@ const getAllBlogs = () => {
 
                             ModifiedBlog.setAttribute("id", blogId);
                             ModifiedBlog.innerHTML = `
+                           
                     <div class="blogCard">
                     <div class="blogDetailDiv">
                     <div class="blogImg">
@@ -505,7 +509,7 @@ const getAllBlogs = () => {
                     <p>${blogDesc.slice(0, 500)}....</p>
                     </div>
                     <div class="allFromThisUserDiv">
-                    <a href="../allBlogs.html?userId=${userId}">see all from this user</a>                              
+                    <a href="../adminblog/allBlogs.html?userId=${userId}">see all from this user</a>                              
                     </div>
                     </div>`;
                         } else if (blog.type === "added") {
@@ -514,6 +518,7 @@ const getAllBlogs = () => {
                             const blogDesc = blog.doc.data().description;
                             const time = blog.doc.data().time;
                             blogCardMainDiv.innerHTML += `
+                          
                     <div class="blogCardDiv" id="${blog.doc.id}">
                     <div class="blogCard">
                     <div class="blogDetailDiv">
@@ -533,10 +538,123 @@ const getAllBlogs = () => {
                     <p>${blogDesc.slice(0, 500)}....</p>
                     </div>
                     <div class="allFromThisUserDiv">
-                    <a href="../allBlogs.html?userId=${userId}">see all from this user</a>                                   
+                    <a href="../adminblog/allBlogs.html?userId=${userId}">see all from this user</a>                                   
                     </div>
                     </div>
                     </div>`;
+                        }
+                    });
+                });
+            });
+        });
+    } else if (location.pathname == "/index.html") {
+        blogCardMainDiv.innerHTML = "";
+
+        const spinnerBorder = document.querySelector(".spinner-border");
+        const noBlogDiv = document.querySelector(".noBlogDiv");
+
+        const q = collection(db, `user`);
+
+        onSnapshot(q, (querySnapshot) => {
+            querySnapshot.docChanges().forEach((currUser) => {
+                const userId = currUser.doc.data().userId;
+                const userName = currUser.doc.data().name.toUpperCase();
+
+                let imageUrl;
+
+                imageUrl = currUser.doc.data().image;
+
+                const q = query(
+                    collection(db, `user/${userId}/blogs`),
+                    orderBy("time", "desc")
+                );
+
+                onSnapshot(q, (querySnapshot) => {
+                    if (querySnapshot.size == 0) {
+                        spinnerBorder.style.display = "none";
+                        noBlogDiv.style.display = "block";
+                    }
+
+                    if (querySnapshot.size) {
+                        spinnerBorder.style.display = "none";
+                        noBlogDiv.style.display = "none";
+                    }
+
+                    querySnapshot.docChanges().forEach((blog) => {
+                        if (blog.type === "removed") {
+                            const dBlog = document.getElementById(blog.doc.id);
+                            dBlog.remove();
+                        } else if (blog.type === "modified") {
+                            const blogId = blog.doc.id;
+                            const ModifiedBlog = document.getElementById(blogId);
+                            const blogTitle = blog.doc.data().title;
+                            const blogDesc = blog.doc.data().description;
+                            const time = blog.doc.data().time;
+
+                            ModifiedBlog.setAttribute("id", blogId);
+
+                            ModifiedBlog.innerHTML = `
+             <div class="blogCard">
+            <div class="blogDetailDiv">
+            <div class="blogImg">
+            <img src=${imageUrl ? imageUrl : "../images/user.png"} alt="">
+            </div>
+            <div class="blogDetail">
+            <div class="blogTitle">
+            <h4>
+            ${blogTitle}
+            </h4>
+           </div>
+           <div class="publishDetail">
+            <h6>
+              ${userName} - ${time.toDate().toDateString()}
+            </h6>
+            </div>
+           </div>
+            </div>
+           <div class="blogDescDiv">
+           <p>
+             ${blogDesc.slice(0, 500)}....
+             </p>
+             </div>
+           <div class="allFromThisUserDiv">
+            <a href="./allBlogs.html?userId=${userId}">see all from this user</a>
+            </div>
+            </div> `;
+                        } else if (blog.type === "added") {
+                            const blogId = blog.doc.id;
+                            const blogTitle = blog.doc.data().title;
+                            const blogDesc = blog.doc.data().description;
+                            const time = blog.doc.data().time;
+                            blogCardMainDiv.innerHTML += `
+            
+            <div class="blogCardDiv" id="${blogId}">
+             <div class="blogCard">
+            <div class="blogDetailDiv">
+            <div class="blogImg">
+             <img src=${imageUrl ? imageUrl : "../images/user.png"} alt="">
+             </div>
+             <div class="blogDetail">
+              <div class="blogTitle">
+             <h4>
+              ${blogTitle}
+              </h4>
+            </div>
+             <div class="publishDetail">
+             <h6>
+              ${userName} - ${time.toDate().toDateString()}
+              </h6>
+              </div>
+             </div>
+            </div>
+          <div class="blogDescDiv">
+           <p> ${blogDesc.slice(0, 500)}.... </p>
+            </div>
+          <div class="allFromThisUserDiv">
+            <a href="./allBlogs.html?userId=${userId}">see all from this user</a>
+            </div>
+            </div>
+          </div> `;
                         }
                     });
                 });
@@ -718,20 +836,15 @@ const getBlogsOfSelectedUser = async () => {
                     <div class="blogCard">
                         <div class="blogDetailDiv">
                             <div class="blogImg">
-                                <img src=${imageUrl ? imageUrl : location.pathname == "/allBlogs.html" ? "./images/user.png" : "../images/user.png"
-                        } alt="">
+                <img src=${imageUrl ? imageUrl : location.pathname == "/allBlogs.html" ? "./images/user.png" : "../images/user.png"} alt="">
                             </div>
                             <div class="blogDetail">
-                                <div class="blogTitle">
-                                    <h4>
-                                        ${blogTitle}
-                                    </h4>
+                         <div class="blogTitle">
+                            <h4>${blogTitle} </h4>
                                 </div>
                                 <div class="publishDetail">
                                     <h6>
-                                        ${userNameValue} - ${time
-                            .toDate()
-                            .toDateString()}
+                                        ${userNameValue} - ${time.toDate().toDateString()}
                                     </h6>
                                 </div>
   
@@ -751,6 +864,7 @@ const getBlogsOfSelectedUser = async () => {
                     const blogDesc = blog.doc.data().description;
                     const time = blog.doc.data().time;
                     blogCardMainDiv.innerHTML += `
+                   
         <div class="blogCardDiv" id="${blog.doc.id}">
                     <div class="blogCard">
                         <div class="blogDetailDiv">
@@ -796,3 +910,5 @@ if (location.pathname == "/allBlogs.html") {
 if (location.pathname == "/adminblog/allBlogs.html") {
     getBlogsOfSelectedUser();
 }
+
+
